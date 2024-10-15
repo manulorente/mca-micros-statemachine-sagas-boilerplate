@@ -1,44 +1,40 @@
-# Ejecución
+# Delivery system following a microservices architecture State Machine
 
-## Arranque de mysql y kafka
+Proof of concept of a microservices architecture with Spring Boot, Spring State Machine, Kafka, MySQL, and Docker.
 
+## Getting started
+
+### Run the services
+
+```bash
 docker-compose -f docker-compose-mysql.yaml up
+```
 
-## Parada de mysql y Kafka
+### Stop the services
 
+```bash
 docker-compose -f docker-compose-mysql.yaml down
+```
 
-## Terminal en gateway-service
+### Run services
 
+To run the services need to run in the directory of each service:
+
+```bash
 mvn spring-boot:run
+```
 
-## Terminal en order-service
+## API endpoints
 
-mvn spring-boot:run
+There are four collections of Postman tests.
 
-## Terminal en inventory-service
+| Order state | Rejection reason | Comment |
+| --- | --- | --- |
+| APPROVED | - | The order has been approved |
+| REJECTED | INSUFFICIENT_CREDIT | The order has been rejected because the customer has insufficient credit |
+| REJECTED | SOLD_OUT | The order has been rejected because the product is sold out |
+| REJECTED | SOLD_OUT | The order has been rejected because the delivery is not available in the city |
 
-mvn spring-boot:run
+### Notes
 
-## Terminal en customer-service
-
-mvn spring-boot:run
-
-## Terminal en delivery-service
-
-mvn spring-boot:run
-
-# API endpoints
-
-Se adjunta 4 colecciones en la carpeta postman. Varios escenarios posibles:  
-
-## orderState    rejectionReason    comentario
-
-  APPROVED                                Scenario 1 - El pedido cumple con todos los requisitos del sistema  
-  REJECTED        INSUFFICIENT_CREDIT     Scenario 2 - El pedido se ha rechazado porque falta saldo en el cliente  
-  REJECTED        SOLD_OUT                Scenario 3 - El pedido se ha rechazado porque falta stock del producto  
-  REJECTED        SOLD_OUT                Scenario 4 - El pedido se ha rechazado porque no se puede repartir en esa ciudad  
-
-# Notas  
-
-Hay que ir recuperando el ID de los pedidos y clientes que se van creando para poder hacer las pruebas de los endpoints de los servicios.
+Make sure to retrieve the IDs of the orders and customers being created to test the endpoints of the services.
